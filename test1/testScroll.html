@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Title of the document</title>
+</head>
+
+<body>
+  <h1>This is a heading</h1>
+  <p>This is a paragraph.</p>
+</body>
+<script>
+if (window.addEventListener)
+    window.addEventListener('DOMMouseScroll', wheel, false)
+window.onmousewheel = document.onmousewheel = wheel
+// 统一处理滚动事件
+function wheel(e) {
+    let delta = 0
+    if (!e) e = window.event
+    console.log(e)
+    if (e.wheelDelta) {
+        //IE、chrome浏览器使用的是wheelDelta，并且值为“正负120”
+        delta = e.wheelDelta / 120
+        //因为IE、chrome等向下滚动是负值，FF是正值，为了处理一致性，在此取反处理
+        if (window.opera) delta = -delta
+    } else if (e.detail) {
+        //FF浏览器使用的是detail,其值为“正负3”
+        delta = -e.detail / 3
+    }
+    if (delta) handle(delta)
+}
+// 上下滚动时的具体处理函数
+function handle(delta) {
+    if (delta < 0) {
+        console.log('向下滚动')
+    } else {
+        console.log('向上滚动')
+    }
+}
+</script>
+</html>
